@@ -1,8 +1,5 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app clipped-right flat height="72">
-      <v-spacer></v-spacer>
-    </v-app-bar>
 
     <v-navigation-drawer app clipped right>
       <v-list>
@@ -45,11 +42,12 @@
       </div>
     </v-main>
 
-    <v-footer app height="72" inset>
+    <v-footer color="transparent" app height="72" inset>
       <v-container fluid>
         <v-row>
           <v-col cols="12">
             <v-text-field
+              background-color="#272727"
               v-model="textInpt"
               @keypress.enter="onSend"
               dense
@@ -138,17 +136,20 @@ html {
 /* Track */
 ::-webkit-scrollbar-track {
   /* background: #f1f1f1;  */
+  background: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #272727;
+  background: transparent;
   border-radius: 4px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   /* background: #555;  */
+  background: transparent;
+
 }
 
 .section {
