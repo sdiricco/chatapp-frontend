@@ -152,8 +152,10 @@ html {
 }
 
 .section {
+  height: calc(100vh - calc(100vh - 100%));
   overflow-y: auto;
   max-height: calc(100vh - 72px - 72px);
+  min-height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
   padding: 8px;
