@@ -23,7 +23,7 @@
     </v-navigation-drawer>
 
     <v-main>
-      <div v-if="messages.length" class="section">
+      <div v-if="messages.length" :ref="this.uuid" class="section">
         <template v-for="m in messages">
           <div
             :class="[
@@ -31,14 +31,16 @@
               'mb-2',
               'item',
             ]"
-            :key="m.timestamp"
+            :key="m.timestamp + '_ul'"
           >
-            <div class="item-header">{{ toShortId(m.id) }} - {{ formatData(m.timestamp) }}</div>
+            <div class="item-header">
+              {{ toShortId(m.id) }} - {{ formatData(m.timestamp) }}
+            </div>
             <div class="item-content">
               {{ m.message }}
             </div>
           </div>
-          <v-spacer :key="m.message"></v-spacer>
+          <v-spacer :key="m.timestamp + '_spacer'"></v-spacer>
         </template>
       </div>
     </v-main>
@@ -56,7 +58,9 @@
               rounded
               solo
             >
-              <v-icon slot="append" color="primary"> mdi-send </v-icon>
+              <v-icon slot="append" color="primary" @click="onSend">
+                mdi-send
+              </v-icon>
             </v-text-field>
           </v-col>
         </v-row>
@@ -75,45 +79,44 @@ export default {
     drawer: null,
     messages: [],
     id: "",
+    uuid: Math.random().toString(36).substr(2, 15),
   }),
   sockets: {
     connect: function () {
       console.log("socket connected");
     },
     allMessages: function (response = { data: [] }) {
-      console.log(response.data);
       this.messages = response.data;
     },
-    newUserConnected: function (response = { id: "" }) {
-      console.log("add", response.id);
+    newUserConnected: function () {
     },
     allUsers: function (response = { data: [] }) {
       this.usersId = response.data;
     },
     join: function (response = { id: "" }) {
       this.id = response.id;
-      console.log(response.id);
     },
   },
   methods: {
     onSend() {
-      console.log("on send");
       this.$socket.emit("message", { message: this.textInpt });
       this.textInpt = "";
     },
-    toShortId(id = ''){
-      console.log(id.substring(0,5))
-      return id.substring(0,5)
+    toShortId(id = "") {
+      return id.substring(0, 5);
     },
-    formatData(d){
-      const data = new Date(d)
+    formatData(d) {
+      const data = new Date(d);
       const hours = data.getHours();
       const minutes = data.getMinutes();
       const seconds = data.getSeconds();
 
-      return `${hours}:${minutes}:${seconds}`
-    }
+      return `${hours}:${minutes}:${seconds}`;
+    },
   },
+  updated(){
+    this.$refs[this.uuid].scrollTop = this.$refs[this.uuid].scrollHeight
+  }
 };
 </script>
 
@@ -157,14 +160,13 @@ export default {
   padding: 12px;
 }
 
-.item-header{
+.item-header {
   opacity: 0.6;
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
 
-.item-content{
-
+.item-content {
 }
 
 .align-right {
