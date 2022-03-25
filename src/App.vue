@@ -42,7 +42,7 @@
       </div>
     </v-main>
 
-    <v-footer color="transparent" app height="72" inset>
+    <v-footer color="#121212" app height="72" inset>
       <v-container fluid>
         <v-row>
           <v-col cols="12">
