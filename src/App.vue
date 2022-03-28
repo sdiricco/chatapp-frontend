@@ -120,13 +120,6 @@ export default {
 
 <style>
 
-body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-}
-html {
-  height: -webkit-fill-available;
-}
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -153,14 +146,11 @@ html {
 }
 
 .section {
-  height: calc(100vh - calc(100vh - 100%));
   overflow-y: auto;
-  max-height: calc(100vh - 72px - 72px);
-  min-height: -webkit-fill-available;
+  max-height: calc(100vh - 72px);
   display: flex;
   flex-direction: column;
-  padding: 8px;
-  padding-bottom: 72px;
+  margin: 8px;
 }
 
 .item {
