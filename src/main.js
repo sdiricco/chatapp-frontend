@@ -3,6 +3,7 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import VueSocketIO from 'vue-socket.io';
 import SocketIO from 'socket.io-client'
+import './registerServiceWorker'
 
 Vue.use(new VueSocketIO({
   debug: true,
